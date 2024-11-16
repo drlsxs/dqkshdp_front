@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Editor from "./modules/editor.vue";
+</script>
 
 <template>
-  <div class="bg-gray:20">编辑器111</div>
+  <NLayout>
+    <Editor class="h-full"></Editor>
+  </NLayout>
 </template>
 
 <style scoped></style>

@@ -255,7 +255,13 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor, recommended = false)
       tabTextColorHoverLine: '#808284',
       barColor: 'transparent',
       panePaddingMedium: '0 0 0 0',
-      tabTextColorLine: '#808284'
+      tabTextColorLine: '#808284',
+      tabFontWeightActive:"bold",
+      tabFontSizeMedium: "13px",
+    },
+    Collapse:{
+      titleFontSize: "13px",
+      titleFontWeight: "bold",
     }
   };
 

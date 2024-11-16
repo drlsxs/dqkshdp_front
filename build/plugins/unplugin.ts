@@ -28,6 +28,7 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
       defaultClass: 'inline-block'
     }),
     Components({
+      dirs: ['src/components'],
       dts: 'src/typings/components.d.ts',
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [

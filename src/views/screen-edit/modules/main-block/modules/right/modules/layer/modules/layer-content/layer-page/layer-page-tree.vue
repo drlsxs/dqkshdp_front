@@ -1,0 +1,110 @@
+<script lang="ts" setup>
+import { h, reactive } from 'vue';
+import type { TreeOption } from 'naive-ui';
+import { NIcon, useMessage } from 'naive-ui';
+import { FileTrayFullOutline, Folder, FolderOpenOutline } from '@vicons/ionicons5';
+import ContextMenu from '@imengyu/vue3-context-menu';
+import { useScreenStore } from '@/store/modules/screen';
+import { useAuthStore } from '@/store/modules/auth';
+const screenStore = useScreenStore();
+const authStore = useAuthStore();
+
+const message = useMessage();
+const updatePrefixWithExpaned = (
+  _keys: Array<string | number>,
+  _option: Array<TreeOption | null>,
+  meta: {
+    node: TreeOption | null;
+    action: 'expand' | 'collapse' | 'filter';
+  }
+) => {
+  if (!meta.node) return;
+  // eslint-disable-next-line default-case
+  switch (meta.action) {
+    case 'expand':
+      meta.node.prefix = () =>
+        h(NIcon, null, {
+          default: () => h(FolderOpenOutline)
+        });
+      break;
+    case 'collapse':
+      meta.node.prefix = () =>
+        h(NIcon, null, {
+          default: () => h(Folder)
+        });
+      break;
+  }
+};
+const nodeProps = ({ option }: { option: TreeOption }) => {
+  return {
+    onClick() {
+      if (!option.children && !option.disabled) {
+        message.info(`[Click] ${option.label}`);
+      }
+    }
+  };
+};
+const renderScreenTree = (screenDoor: DScreen.CompObj) => {
+  const warpScreen = [screenDoor];
+  const getScreen = (screenList: DScreen.CompObj[]) => {
+    screenList.map(screen => {
+      // if (screen.type)
+    });
+  };
+};
+const data = reactive([
+  {
+    key: '根目录',
+    label: '根目录',
+    prefix: () =>
+      h(NIcon, null, {
+        default: () => h(Folder)
+      }),
+    children: [
+      {
+        label: '页面 1',
+        key: '页面 1',
+        prefix: () =>
+          h(NIcon, null, {
+            default: () => h(FileTrayFullOutline)
+          })
+      }
+    ]
+  }
+]);
+const onContextMenu = (e: MouseEvent) => {
+  // prevent the browser's default menu
+  e.preventDefault();
+  // show your menu
+  ContextMenu.showContextMenu({
+    x: e.x,
+    y: e.y,
+    items: [
+      {
+        label: 'A menu item',
+        onClick: () => {
+          console.log(authStore.userInfo, 11);
+          console.log(screenStore.screenDoor, 11);
+          screenStore.screenDoor.name = 'ddd';
+          console.log(screenStore.screenDoor, 22);
+        }
+      },
+      {
+        label: 'A submenu',
+        children: [{ label: 'Item1' }, { label: 'Item2' }, { label: 'Item3' }]
+      }
+    ]
+  });
+};
+</script>
+
+<template>
+  <NTree
+    block-line
+    expand-on-click
+    :data="data"
+    :node-props="nodeProps"
+    :on-update:expanded-keys="updatePrefixWithExpaned"
+    @contextmenu="onContextMenu"
+  />
+</template>

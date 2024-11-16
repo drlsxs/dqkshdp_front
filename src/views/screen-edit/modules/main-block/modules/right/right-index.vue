@@ -1,10 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Layer from "./modules/layer/layer-index.vue";
+</script>
 
 <template>
-  <NTabs type="line" :tabs-padding="8">
-    <NTabPane name="layer" tab="图层">图层</NTabPane>
-    <NTabPane name="components" tab="组件">组件</NTabPane>
-    <NTabPane name="modules" tab="模块">模块</NTabPane>
+  <NTabs type="line" class="h-full" :tabs-padding="8">
+    <NTabPane class="h-[calc(100%-50px)]" name="layer" tab="图层">
+      <Layer></Layer>
+    </NTabPane>
   </NTabs>
 </template>
 
