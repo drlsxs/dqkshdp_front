@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { useDropZone } from '@vueuse/core';
 import { getComponent } from '@/views/screen-edit/global';
 import ComponentWrapper from '../../../../../components/componentWrapper.vue';
+
 const editorRef = ref();
-const comp: DScreen.CompObj = reactive({
-  name: '页面',
-  key: 'page',
-  type: 'page',
-  children: [],
-  isContainer: true
-});
+interface Props {
+  // 组件对象
+  comp: DScreen.CompObj;
+}
+const props = defineProps<Props>();
 const { isOverDropZone } = useDropZone(editorRef, onDrop);
-function onDrop(file, event) {
-  const val = event.dataTransfer?.getData('comp');
-  const targetComp = getComponent(event, comp);
+function onDrop(file, event: DragEvent) {
+  const val = event.dataTransfer?.getData('comp') as string;
+  const targetComp = getComponent(event, props.comp);
   const dropComp: DScreen.CompObj = JSON.parse(val);
+  dropComp.id = `${new Date().getTime()}`;
+  if (!targetComp.children) targetComp.children = [];
   targetComp.children.push(dropComp);
 }
 </script>

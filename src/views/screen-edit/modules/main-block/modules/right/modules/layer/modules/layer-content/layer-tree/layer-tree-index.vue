@@ -1,11 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LayerTreeData from './layer-tree-data.vue';
+</script>
 
 <template>
   <NLayout>
     <NSpace align="center" justify="space-between">
-      <NEl class="font-bold text-13px">图层</NEl>
+      <NEl class="text-13px font-bold">图层</NEl>
       <SvgIcon icon="ant-design:node-expand-outlined" class="cursor-pointer"></SvgIcon>
     </NSpace>
+    <NLayoutContent>
+      <LayerTreeData></LayerTreeData>
+    </NLayoutContent>
   </NLayout>
 </template>
 

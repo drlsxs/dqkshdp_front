@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import CompCard from "../comp-card.vue";
-import {reactive} from "vue";
+import { reactive } from 'vue';
+import CompCard from '../comp-card.vue';
 
-const compList:DScreen.CompObj[] = reactive([
+const compList: DScreen.CompObj[] = reactive([
   {
-    name: "容器",
-    type: "comp",
-    key: "DLayout",
+    name: '容器',
+    type: 'comp',
+    key: 'DLayout',
     children: [],
-    level: 0,
-    num: 0,
-    isContainer: true,
+    isContainer: true
   }
 ]);
-
 </script>
 
 <template>
@@ -26,6 +23,4 @@ const compList:DScreen.CompObj[] = reactive([
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

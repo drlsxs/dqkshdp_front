@@ -1,51 +1,24 @@
 <script lang="ts" setup>
-import { h } from 'vue';
 import type { TreeOption } from 'naive-ui';
 import { NIcon, useMessage } from 'naive-ui';
-import { Folder, FolderOpenOutline } from '@vicons/ionicons5';
+import { h } from 'vue';
 import ContextMenu from '@imengyu/vue3-context-menu';
+import { CaretForward } from '@vicons/ionicons5';
 import { useScreenStore } from '@/store/modules/screen';
 
 const screenStore = useScreenStore();
-
 const message = useMessage();
-const updatePrefixWithExpaned = (
-  _keys: Array<string | number>,
-  _option: Array<TreeOption | null>,
-  meta: {
-    node: TreeOption | null;
-    action: 'expand' | 'collapse' | 'filter';
-  }
-) => {
-  if (!meta.node) return;
-  // eslint-disable-next-line default-case
-  switch (meta.action) {
-    case 'expand':
-      meta.node.prefix = () =>
-        h(NIcon, null, {
-          default: () => h(FolderOpenOutline)
-        });
-      break;
-    case 'collapse':
-      meta.node.prefix = () =>
-        h(NIcon, null, {
-          default: () => h(Folder)
-        });
-      break;
-  }
-};
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onClick() {
       if (!option.children && !option.disabled) {
-        message.info(`[Click] ${option.label}`);
-        screenStore.getClickPageScreen(option.key);
+        // message.info(`[Click] ${option.label}`);
       }
     }
   };
 };
 
-const data = screenStore.pageDoor;
+const data = screenStore.curScreen.children;
 const onContextMenu = (e: MouseEvent) => {
   // prevent the browser's default menu
   e.preventDefault();
@@ -65,15 +38,23 @@ const onContextMenu = (e: MouseEvent) => {
     ]
   });
 };
+
+function renderSwitchIcon({ option }: { option: TreeOption }) {
+  if (option.children?.length) {
+    return h(NIcon, null, { default: () => h(CaretForward) });
+  }
+}
 </script>
 
 <template>
   <NTree
+    label-field="name"
+    key-field="id"
     block-line
     expand-on-click
     :data="data"
     :node-props="nodeProps"
-    :on-update:expanded-keys="updatePrefixWithExpaned"
+    :render-switcher-icon="renderSwitchIcon"
     @contextmenu="onContextMenu"
   />
 </template>

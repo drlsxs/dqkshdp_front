@@ -11,5 +11,7 @@ declare namespace DScreen {
     children: CompObj[];
     /** 是否可以加子组件 */
     isContainer: boolean;
+    /** 组件id */
+    id: string;
   }
 }
