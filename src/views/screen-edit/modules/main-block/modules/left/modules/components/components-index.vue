@@ -20,7 +20,7 @@ onMounted(() => {
 
 <template>
   <NLayout>
-    <NLayoutHeader>
+    <NLayoutHeader class="px2">
       <ComponentSearch></ComponentSearch>
     </NLayoutHeader>
     <NLayoutContent class="h-[calc(100%-40px)] p2">

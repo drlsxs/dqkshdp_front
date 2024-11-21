@@ -30,7 +30,7 @@ const compList: DScreen.CompObj[] = reactive([
 <template>
   <div>
     <NGrid :cols="3" x-gap="5" y-gap="5">
-      <NGi v-for="comp in compList">
+      <NGi v-for="comp in compList" :key="comp.key">
         <CompCard :comp="comp"></CompCard>
       </NGi>
     </NGrid>

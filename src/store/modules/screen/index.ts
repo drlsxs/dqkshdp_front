@@ -72,7 +72,7 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     hoverComp = comp;
   }
 
-  /** 更新鼠标移入的组件 */
+  /** 更新拖拽移入的组件 */
   function updateDragOverComp(comp: DScreen.CompObj) {
     if (!comp.isContainer) return;
     hoverComp._isDragOver = false;

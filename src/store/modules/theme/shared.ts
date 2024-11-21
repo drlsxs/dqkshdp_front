@@ -252,16 +252,16 @@ export function getNaiveTheme(colors: App.Theme.ThemeColor, recommended = false)
     },
     Tabs: {
       tabTextColorActiveLine: '#000',
-      tabTextColorHoverLine: '#808284',
+      tabTextColorHoverLine: '#787575',
       barColor: 'transparent',
       panePaddingMedium: '0 0 0 0',
-      tabTextColorLine: '#808284',
-      tabFontWeightActive:"bold",
-      tabFontSizeMedium: "13px",
+      tabTextColorLine: '#787575',
+      tabFontWeightActive: 'bold',
+      tabFontSizeMedium: '13px'
     },
-    Collapse:{
-      titleFontSize: "13px",
-      titleFontWeight: "bold",
+    Collapse: {
+      titleFontSize: '13px',
+      titleFontWeight: 'bold'
     }
   };
 

@@ -5,7 +5,7 @@ import LayerContent from './modules/layer-content/layer-content-index.vue';
 
 <template>
   <NLayout class="h-full">
-    <NLayoutHeader>
+    <NLayoutHeader class="px2">
       <LayerSearch></LayerSearch>
     </NLayoutHeader>
     <NLayoutContent class="h-[calc(100%-40px)]">
