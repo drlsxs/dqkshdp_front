@@ -6,7 +6,7 @@ import { Folder, FolderOpenOutline } from '@vicons/ionicons5';
 import ContextMenu from '@imengyu/vue3-context-menu';
 import { useScreenStore } from '@/store/modules/screen';
 
-const screenStore = useScreenStore();
+const $D = useScreenStore();
 
 const message = useMessage();
 const updatePrefixWithExpaned = (
@@ -39,13 +39,13 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
     onClick() {
       if (!option.children && !option.disabled) {
         message.info(`[Click] ${option.label}`);
-        screenStore.getClickPageScreen(option.key);
+        $D.getClickPageScreen(option.key);
       }
     }
   };
 };
 
-const data = screenStore.pageDoor;
+const data = $D.pageDoor;
 const onContextMenu = (e: MouseEvent) => {
   // prevent the browser's default menu
   e.preventDefault();

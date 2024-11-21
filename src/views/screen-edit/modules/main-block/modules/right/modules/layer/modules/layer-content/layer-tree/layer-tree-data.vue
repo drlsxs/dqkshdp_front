@@ -4,7 +4,7 @@ import { useMessage } from 'naive-ui';
 import ContextMenu from '@imengyu/vue3-context-menu';
 import { useScreenStore } from '@/store/modules/screen';
 
-const screenStore = useScreenStore();
+const $D = useScreenStore();
 const message = useMessage();
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
@@ -16,7 +16,7 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
   };
 };
 
-const data = screenStore.curScreen.children;
+const data = $D.curPage.children;
 const onContextMenu = (e: MouseEvent) => {
   // prevent the browser's default menu
   e.preventDefault();
