@@ -14,6 +14,8 @@ declare namespace UnionKey {
   /** Theme scheme */
   type ThemeScheme = 'light' | 'dark' | 'auto';
 
+  type compType = 'basic' | 'advance';
+
   /**
    * Reset cache strategy
    *

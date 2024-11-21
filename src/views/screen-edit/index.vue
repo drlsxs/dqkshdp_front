@@ -4,7 +4,7 @@ import ScreenEditor from '@/views/screen-edit/modules/main-block/main-block.vue'
 </script>
 
 <template>
-  <NLayout class="size-full bg-container" content-class="flex flex-col">
+  <NLayout class="editor-page size-full" content-class="flex flex-col">
     <ScreenHeader class="mb-1"></ScreenHeader>
     <ScreenEditor></ScreenEditor>
   </NLayout>

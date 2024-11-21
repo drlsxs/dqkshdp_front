@@ -3,15 +3,15 @@ import LayerTreeData from './layer-tree-data.vue';
 </script>
 
 <template>
-  <NLayout>
+  <div class="h-full">
     <NSpace align="center" justify="space-between">
-      <NEl class="text-13px font-bold">图层</NEl>
+      <div class="text-13px font-bold">图层</div>
       <SvgIcon icon="ant-design:node-expand-outlined" class="cursor-pointer"></SvgIcon>
     </NSpace>
-    <NLayoutContent>
-      <LayerTreeData></LayerTreeData>
-    </NLayoutContent>
-  </NLayout>
+    <NScrollbar>
+      <LayerTreeData class="mb-2.5"></LayerTreeData>
+    </NScrollbar>
+  </div>
 </template>
 
 <style scoped></style>

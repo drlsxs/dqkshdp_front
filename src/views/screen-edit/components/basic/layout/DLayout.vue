@@ -1,27 +1,24 @@
 <script setup lang="ts">
-defineOptions({name:'DLayout'})
+defineOptions({ name: 'DLayout' });
 interface Props {
   comp: DScreen.CompObj;
 }
 
-const props = defineProps<Props>();
-
-
-
+defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <slot name="child"></slot>
+  <div class="flex-container-comp">
     <div
-
-      class="layout-out-border min-h-40px  w-full flex items-center justify-center cursor-pointer border-1 border-dashed border-#dedede"
+      :class="{ 'min-h-40px outline-1 outline-#bdb9b9 outline-dashed': !comp.children?.length }"
+      class="relative flex items-center justify-start"
     >
-      <span v-if="!comp.children.length">拖动组件到此区域</span>
+      <slot name="child"></slot>
+      <div v-if="!comp.children?.length" :class="{ 'w-full': !comp.children?.length }" class="px1 text-center">
+        拖动组件到此区域
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -4,7 +4,7 @@ import LayerPageTree from './layer-page-tree.vue';
 
 <template>
   <NLayout>
-    <NEl class="text-13px font-bold">页面</NEl>
+    <div class="text-13px font-bold">页面</div>
     <NLayoutContent>
       <LayerPageTree></LayerPageTree>
     </NLayoutContent>

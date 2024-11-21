@@ -3,14 +3,14 @@ import { onMounted, reactive } from 'vue';
 import ComponentSearch from './modules/component-search.vue';
 import BasicComponent from './modules/basic-component/bastic-component.vue';
 
-const defaultActive = reactive(['basic']);
-const expandRecord = reactive({
+const defaultActive: UnionKey.compType[] = reactive(['basic']);
+const expandRecord: Record<UnionKey.compType, string> = reactive({
   basic: '+',
-  dd: '+'
+  advance: '+'
 });
 
-function clickHeaderItem(data) {
-  expandRecord[data.name] = data.expanded ? '-' : '+';
+function clickHeaderItem({ name, expanded }: { name: UnionKey.compType; expanded: boolean }) {
+  expandRecord[name] = expanded ? '-' : '+';
 }
 
 onMounted(() => {
@@ -31,9 +31,9 @@ onMounted(() => {
           </template>
           <BasicComponent></BasicComponent>
         </NCollapseItem>
-        <NCollapseItem title="高级组件" name="dd">
+        <NCollapseItem title="高级组件" name="advance">
           <template #arrow>
-            <span class="font-bold">{{ expandRecord.dd }}</span>
+            <span class="font-bold">{{ expandRecord.advance }}</span>
           </template>
           <BasicComponent></BasicComponent>
         </NCollapseItem>

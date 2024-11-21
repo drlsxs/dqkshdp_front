@@ -70,7 +70,9 @@ const onContextMenu = (e: MouseEvent) => {
 <template>
   <NTree
     block-line
+    block-node
     expand-on-click
+    :scrollbar-props="{ xScrollable: true }"
     :data="data"
     :node-props="nodeProps"
     :on-update:expanded-keys="updatePrefixWithExpaned"

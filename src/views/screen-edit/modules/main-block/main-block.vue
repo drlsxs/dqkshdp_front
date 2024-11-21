@@ -10,7 +10,7 @@ defineOptions({ name: 'ScreenEditor' });
   <NLayoutContent>
     <NSpace class="h-full" :wrap-item="false" :wrap="false" :size="[0, 0]">
       <LeftIndex class="w-15%"></LeftIndex>
-      <CenterIndex class="w-70%"></CenterIndex>
+      <CenterIndex class="w-70% bg-gray:20"></CenterIndex>
       <RightIndex class="w-15%"></RightIndex>
     </NSpace>
   </NLayoutContent>

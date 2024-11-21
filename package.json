@@ -67,6 +67,7 @@
     "dhtmlx-gantt": "8.0.10",
     "dompurify": "3.1.6",
     "echarts": "5.5.1",
+    "highlight.js": "^11.10.0",
     "jsbarcode": "3.11.6",
     "json5": "2.2.3",
     "naive-ui": "2.40.1",
