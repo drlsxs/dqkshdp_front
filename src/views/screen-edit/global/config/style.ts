@@ -17,3 +17,5 @@ export const segmentTabStyle = {
   '--n-tab-border-radius': '3px',
   '--n-tab-text-color': '#787575'
 };
+
+export const tagStyle = {};

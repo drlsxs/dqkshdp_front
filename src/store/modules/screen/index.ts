@@ -85,8 +85,7 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
       targetComp = parentComp;
       compIndex = index;
     } else {
-      if (!targetComp.children) targetComp.children = [];
-      compIndex = targetComp.children?.length as number;
+      compIndex = targetComp.children?.length as number | 0;
     }
     return {
       targetComp,

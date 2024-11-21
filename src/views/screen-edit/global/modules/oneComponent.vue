@@ -26,18 +26,28 @@ useEventListener(oneComp, 'dragstart', event => {
 </script>
 
 <template>
-  <component
-    :is="compMap[compObj.key]"
-    ref="oneComp"
-    class="component-wrapper"
-    draggable="true"
-    :comp="compObj"
-    :class="{ 'is-drag-over': compObj._isDragOver, 'is-hover': compObj._isHover }"
-  >
-    <template v-if="compObj.isContainer && compObj.children && compObj.children.length" #child>
-      <slot name="childComp"></slot>
-    </template>
-  </component>
+  <div class="component-wrapper relative">
+    <span
+      v-if="compObj._isHover"
+      class="absolute bg-blue px1 text-white -left-2px -top-22px"
+      size="small"
+      :bordered="false"
+      type="info"
+    >
+      {{ compObj.name }}
+    </span>
+    <component
+      :is="compMap[compObj.key]"
+      ref="oneComp"
+      draggable="true"
+      :comp="compObj"
+      :class="{ 'is-drag-over': compObj._isDragOver, 'is-hover': compObj._isHover }"
+    >
+      <template v-if="compObj.isContainer && compObj.children && compObj.children.length" #child>
+        <slot name="childComp"></slot>
+      </template>
+    </component>
+  </div>
 </template>
 
 <style lang="scss" scoped>
