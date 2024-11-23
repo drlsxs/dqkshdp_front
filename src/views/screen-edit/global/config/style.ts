@@ -6,6 +6,7 @@ export const inputStyle = {
 
 export const editorStyle = {
   '--d-comp-hover-style': '2px solid #207cfb',
+  '--d-comp-click-style': '2px solid lightblue',
   '--d-comp--drag-over': '#c3d4f1'
 };
 
@@ -18,4 +19,20 @@ export const segmentTabStyle = {
   '--n-tab-text-color': '#787575'
 };
 
-export const tagStyle = {};
+export const compCommonStyle = {
+  'font-style': 'normal',
+  'font-weight': 'normal',
+  'font-size': '14px',
+  'line-height': 1,
+  'font-family': 'Arial, sans-serif',
+  width: '',
+  height: '',
+  padding: '0 0 0 0',
+  margin: '0 0 0 0',
+  border: '',
+  background: '',
+  'box-shadow': '',
+  'border-radius': '',
+  opacity: '100',
+  position: ''
+};

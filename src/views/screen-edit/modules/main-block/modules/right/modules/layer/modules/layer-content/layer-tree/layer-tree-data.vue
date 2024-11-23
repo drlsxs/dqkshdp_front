@@ -1,20 +1,10 @@
 <script lang="ts" setup>
-import type { TreeOption } from 'naive-ui';
 import { useMessage } from 'naive-ui';
 import ContextMenu from '@imengyu/vue3-context-menu';
 import { useScreenStore } from '@/store/modules/screen';
 
 const $D = useScreenStore();
 const message = useMessage();
-const nodeProps = ({ option }: { option: TreeOption }) => {
-  return {
-    onClick() {
-      if (!option.children && !option.disabled) {
-        message.info(`[Click] ${option.label}`);
-      }
-    }
-  };
-};
 
 const data = $D.curPage.children;
 const onContextMenu = (e: MouseEvent) => {

@@ -8,21 +8,24 @@ const compList: DScreen.CompObj[] = reactive([
     type: 'comp',
     key: 'DLayout',
     isContainer: true,
-    id: ''
+    id: '',
+    style: {}
   },
   {
     name: '文字',
     type: 'comp',
     key: 'DText',
     isContainer: false,
-    id: ''
+    id: '',
+    style: {}
   },
   {
     name: '矢量图',
     type: 'comp',
     key: 'DSvg',
     isContainer: false,
-    id: ''
+    id: '',
+    style: {}
   }
 ]);
 </script>

@@ -8,7 +8,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="svg-comp inline-block">
+  <div class="svg-comp">
     <SvgIcon class="pointer-events-none" icon="ph:user-circle"></SvgIcon>
   </div>
 </template>

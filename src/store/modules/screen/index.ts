@@ -13,7 +13,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
       key: 'index',
       type: 'group',
       children: [],
-      isContainer: true
+      isContainer: true,
+      style: {}
     }
   ]);
   let curPage: DScreen.CompObj = screenDoor[0] as DScreen.CompObj;
@@ -27,7 +28,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
         })
     }
   ]);
-  let hoverComp: DScreen.CompObj = {} as DScreen.CompObj;
+  let targetComp: DScreen.CompObj = {} as DScreen.CompObj;
+  let clickComp: DScreen.CompObj = {} as DScreen.CompObj;
 
   /**
    * 找出当前页面对应的屏幕
@@ -42,17 +44,26 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
 
   /** 更新鼠标移入的组件 */
   function updateHoverComp(comp: DScreen.CompObj) {
-    hoverComp._isHover = false;
+    targetComp._isHover = false;
     comp._isHover = true;
-    hoverComp = comp;
+    targetComp = comp;
   }
 
   /** 更新拖拽移入的组件 */
   function updateDragOverComp(comp: DScreen.CompObj) {
     if (!comp.isContainer) return;
-    hoverComp._isDragOver = false;
+    targetComp._isDragOver = false;
     comp._isDragOver = true;
-    hoverComp = comp;
+    targetComp = comp;
+  }
+
+  /** 更新点击的组件 */
+  function updateClickComp(comp: DScreen.CompObj) {
+    clickComp._isClick = false;
+    clickComp._isHover = false;
+    comp._isHover = false;
+    comp._isClick = true;
+    clickComp = comp;
   }
 
   /**
@@ -76,19 +87,19 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
    * @param rootComp
    */
   function getContainerComp(event: any, rootComp: DScreen.CompObj) {
-    let targetComp: DScreen.CompObj = getSelfComp(event, rootComp);
+    let comp: DScreen.CompObj = getSelfComp(event, rootComp);
     let compIndex = 0;
     // 如果落下的组件不是容器组件
-    if (!targetComp.isContainer) {
+    if (!comp.isContainer) {
       // 找到这个组件的上一级容器组件
-      const { parentComp, index } = getParentComp(rootComp, targetComp);
-      targetComp = parentComp;
+      const { parentComp, index } = getParentComp(rootComp, comp);
+      comp = parentComp;
       compIndex = index;
     } else {
-      compIndex = targetComp.children?.length as number | 0;
+      compIndex = comp.children?.length as number | 0;
     }
     return {
-      targetComp,
+      comp,
       compIndex
     };
   }
@@ -125,13 +136,13 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
    * @param event
    */
   function dropEditor(_: any, event: DragEvent) {
-    const { targetComp, compIndex } = getContainerComp(event, curPage);
+    const { comp, compIndex } = getContainerComp(event, curPage);
     const val = event.dataTransfer?.getData('comp') as string;
     const dropComp: DScreen.CompObj = JSON.parse(val);
     // 如果是内部拖拽
     if (dropComp._isInnerDrag) {
       // 落下的不是自身
-      if (targetComp.id !== dropComp.id) {
+      if (comp.id !== dropComp.id) {
         // 最后删除掉自身
         const { parentComp, index } = getParentComp(curPage, dropComp);
         parentComp.children?.splice(index, 1);
@@ -140,13 +151,13 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
       // 外部拖拽赋值id,内部id不变
       dropComp.id = `${new Date().getTime()}`;
     }
-    if (!targetComp.children) targetComp.children = [];
+    if (!comp.children) comp.children = [];
     // 如果是自身，必是内部拖拽，不往自身继续添加子元素
-    if (targetComp.id !== dropComp.id) {
-      targetComp.children.splice(compIndex, 0, dropComp);
+    if (comp.id !== dropComp.id) {
+      comp.children.splice(compIndex, 0, dropComp);
     }
     updateDragOverComp(curPage);
-    updateHoverComp(targetComp);
+    updateHoverComp(comp);
   }
 
   return {
@@ -156,6 +167,7 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     getClickPageScreen,
     updateHoverComp,
     updateDragOverComp,
+    updateClickComp,
     getSelfComp,
     getContainerComp,
     getParentComp,

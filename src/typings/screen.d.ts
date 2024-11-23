@@ -24,6 +24,10 @@ declare namespace DScreen {
     _isDragOver?: boolean;
     /** 是否内部拖拽 */
     _isInnerDrag?: boolean;
+    /** 是否被点击 */
+    _isClick?: boolean;
+    /** 组件样式 */
+    style: Record<string, string>;
   }
 
   // 组件类型
