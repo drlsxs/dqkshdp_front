@@ -1,10 +1,19 @@
 <script lang="ts" setup>
-import { useMessage } from 'naive-ui';
 import ContextMenu from '@imengyu/vue3-context-menu';
+import type { TreeOption } from 'naive-ui';
 import { useScreenStore } from '@/store/modules/screen';
 
 const $D = useScreenStore();
-const message = useMessage();
+
+const nodeProps = ({ option: nodeData }: { option: DScreen.CompObj | TreeOption }) => {
+  return {
+    onClick() {
+      nodeData._isClick = true;
+      $D.resetComp($D.curComp);
+      $D.setCurComp(nodeData as DScreen.CompObj);
+    }
+  };
+};
 
 const data = $D.curPage.children;
 const onContextMenu = (e: MouseEvent) => {
@@ -29,5 +38,14 @@ const onContextMenu = (e: MouseEvent) => {
 </script>
 
 <template>
-  <NTree label-field="name" key-field="id" block-line expand-on-click :data="data" @contextmenu="onContextMenu" />
+  <NTree
+    label-field="name"
+    :node-props="nodeProps"
+    key-field="id"
+    block-line
+    :selected-keys="[$D.curComp.id]"
+    expand-on-click
+    :data="data"
+    @contextmenu="onContextMenu"
+  />
 </template>

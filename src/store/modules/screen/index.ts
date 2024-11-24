@@ -138,7 +138,6 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
    * @param event
    */
   function dropEditor(_: any, event: DragEvent) {
-    console.log(curComp, 11);
     const { fallComp, compIndex } = getContainerComp(event, curPage.value);
     const val = event.dataTransfer?.getData('comp') as string;
     const dropComp: DScreen.CompObj = JSON.parse(val);
@@ -175,6 +174,10 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     Object.assign(curComp.value, comp);
   }
 
+  function setCurComp(comp: DScreen.CompObj) {
+    curComp.value = comp;
+  }
+
   function resetComp(comp: DScreen.CompObj) {
     comp._isClick = false;
     comp._isHover = false;
@@ -194,6 +197,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     getContainerComp,
     getParentComp,
     dropEditor,
-    updateCurComp
+    updateCurComp,
+    resetComp,
+    setCurComp
   };
 });

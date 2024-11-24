@@ -7,9 +7,9 @@ const activeName = ref('layer');
 window.$emitter?.on('dropComp', () => {
   activeName.value = 'layer';
 });
-window.$emitter?.on('curComp', () => {
-  activeName.value = 'config';
-});
+// window.$emitter?.on('curComp', () => {
+//   activeName.value = 'config';
+// });
 
 function updateActiveName(value: string) {
   activeName.value = value;
