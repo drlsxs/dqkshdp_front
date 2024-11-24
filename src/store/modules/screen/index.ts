@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { h, reactive } from 'vue';
+import { h, ref } from 'vue';
 import type { TreeOption } from 'naive-ui';
 import { NIcon } from 'naive-ui';
 import { FileTrayFullOutline } from '@vicons/ionicons5';
@@ -7,7 +7,7 @@ import { SetupStoreId } from '@/enum';
 import { compCommonStyle } from '@/views/screen-edit/global/config/style';
 
 export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
-  const screenDoor: DScreen.CompObj[] = reactive([
+  const screenDoor = ref<DScreen.CompObj[]>([
     {
       id: '',
       name: '页面 1',
@@ -18,8 +18,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
       style: {}
     }
   ]);
-  let curPage: DScreen.CompObj = screenDoor[0] as DScreen.CompObj;
-  const pageDoor: TreeOption[] = reactive([
+  const curPage = ref<DScreen.CompObj>(screenDoor.value[0]);
+  const pageDoor = ref<TreeOption[]>([
     {
       key: 'index',
       label: '页面 1  ',
@@ -29,8 +29,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
         })
     }
   ]);
-  let overComp: DScreen.CompObj = {} as DScreen.CompObj;
-  let curComp: DScreen.CompObj = {} as DScreen.CompObj;
+  const overComp = ref<DScreen.CompObj>({} as DScreen.CompObj);
+  const curComp = ref<DScreen.CompObj>({} as DScreen.CompObj);
 
   /**
    * 找出当前页面对应的屏幕
@@ -38,33 +38,33 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
    * @param key
    */
   function getClickPageScreen(key: TreeOption['key']) {
-    const findScreen = screenDoor.find(item => item.key === key) as DScreen.CompObj;
-    curPage = findScreen;
+    const findScreen = screenDoor.value.find(item => item.key === key) as DScreen.CompObj;
+    curPage.value = findScreen;
     return curPage;
   }
 
   /** 更新鼠标移入的组件 */
   function updateHoverComp(comp: DScreen.CompObj) {
-    overComp._isHover = false;
+    overComp.value._isHover = false;
     comp._isHover = true;
-    overComp = comp;
+    overComp.value = comp;
   }
 
   /** 更新拖拽移入的组件 */
   function updateDragOverComp(comp: DScreen.CompObj) {
     if (!comp.isContainer) return;
-    overComp._isDragOver = false;
+    overComp.value._isDragOver = false;
     comp._isDragOver = true;
-    overComp = comp;
+    overComp.value = comp;
   }
 
   /** 更新点击的组件 */
   function getClickComp(comp: DScreen.CompObj) {
     // 将上一个取消点击
-    if (curComp._isClick) curComp._isClick = false;
+    if (curComp.value._isClick) curComp.value._isClick = false;
+    curComp.value = comp;
     // 将现在设置为点击
-    curComp = comp;
-    curComp._isClick = true;
+    curComp.value._isClick = true;
     window.$emitter?.emit('curComp', comp);
   }
 
@@ -101,7 +101,7 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
       compIndex = comp.children?.length as number | 0;
     }
     return {
-      comp,
+      fallComp: comp,
       compIndex
     };
   }
@@ -138,31 +138,46 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
    * @param event
    */
   function dropEditor(_: any, event: DragEvent) {
-    const { comp, compIndex } = getContainerComp(event, curPage);
+    console.log(curComp, 11);
+    const { fallComp, compIndex } = getContainerComp(event, curPage.value);
     const val = event.dataTransfer?.getData('comp') as string;
     const dropComp: DScreen.CompObj = JSON.parse(val);
     // 如果是内部拖拽
     if (dropComp._isInnerDrag) {
       // 落下的不是自身
-      if (comp.id !== dropComp.id) {
+      if (fallComp.id !== dropComp.id) {
         // 最后删除掉自身
-        const { parentComp, index } = getParentComp(curPage, dropComp);
+        const { parentComp, index } = getParentComp(curPage.value, dropComp);
         parentComp.children?.splice(index, 1);
       }
     } else {
       // 外部拖拽赋值id,内部id不变
       dropComp.id = `${new Date().getTime()}`;
     }
-    if (!comp.children) comp.children = [];
+    if (!fallComp.children) fallComp.children = [];
     // 如果是自身，必是内部拖拽，不往自身继续添加子元素
-    if (comp.id !== dropComp.id) {
+    if (fallComp.id !== dropComp.id) {
       const len = Object.keys(dropComp.style).length;
       // 还没有样式。克隆一份基础样式给组件
-      dropComp.style = JSON.parse(JSON.stringify(compCommonStyle));
-      if (!len) comp.children.splice(compIndex, 0, dropComp);
+      if (!len) {
+        dropComp.style = JSON.parse(JSON.stringify(compCommonStyle));
+      }
+      fallComp.children.splice(compIndex, 0, dropComp);
     }
-    updateDragOverComp(curPage);
-    updateHoverComp(comp);
+    window.$emitter?.emit('dropComp', dropComp);
+    updateDragOverComp(curPage.value);
+    updateHoverComp(fallComp);
+    resetComp(curComp.value);
+  }
+
+  /** 更新选中组件的数据 */
+  function updateCurComp(comp: Record<string, any>) {
+    Object.assign(curComp.value, comp);
+  }
+
+  function resetComp(comp: DScreen.CompObj) {
+    comp._isClick = false;
+    comp._isHover = false;
   }
 
   return {
@@ -178,6 +193,7 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     getSelfComp,
     getContainerComp,
     getParentComp,
-    dropEditor
+    dropEditor,
+    updateCurComp
   };
 });

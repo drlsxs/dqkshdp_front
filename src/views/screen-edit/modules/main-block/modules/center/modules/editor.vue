@@ -12,8 +12,8 @@ useDropZone(editorRef, $D.dropEditor);
 
 // 组件在编辑器内拖拽移动到其他组件上逻辑
 useEventListener(editorRef, 'dragover', event => {
-  const { comp } = $D.getContainerComp(event, $D.curPage);
-  $D.updateDragOverComp(comp);
+  const { fallComp } = $D.getContainerComp(event, $D.curPage);
+  $D.updateDragOverComp(fallComp);
 });
 // 鼠标在编辑器内移动逻辑
 useEventListener(editorRef, 'mouseover', event => {

@@ -25,12 +25,15 @@ const compMap: Record<string, Component> = {
 
 const props = defineProps<Props>();
 
-function SelClickComp() {
+function SelClickComp($event: MouseEvent) {
+  $event.stopPropagation();
   $D.getClickComp(props.compObj);
 }
 useEventListener(oneComp, 'dragstart', event => {
+  event.stopPropagation();
   props.compObj._isInnerDrag = true;
   event.dataTransfer?.setData('comp', JSON.stringify(props.compObj));
+  $D.updateCurComp(props.compObj);
 });
 </script>
 

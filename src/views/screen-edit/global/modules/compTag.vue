@@ -10,7 +10,7 @@ defineProps<Props>();
 <template>
   <span
     v-if="compObj._isHover || compObj._isClick"
-    class="absolute bg-blue px1 text-white -left-2px -top-22px"
+    class="absolute h-21px bg-blue px1 text-white lh-21px -left-2px -top-22px"
     :class="compObj._isClick ? 'bg-lightblue' : 'bg-blue'"
     size="small"
     type="info"

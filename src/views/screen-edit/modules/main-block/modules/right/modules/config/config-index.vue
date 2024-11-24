@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { segmentTabStyle } from '@/views/screen-edit/global/config/style.js';
 import MonacoEditor from '@/components/monaco/monaco-editor.vue';
+import { useScreenStore } from '@/store/modules/screen';
 
+const $D = useScreenStore();
 const compStyleStr = ref('');
-let comp: DScreen.CompObj = reactive({}) as DScreen.CompObj;
 const options = {
   colorDecorators: true,
   lineHeight: 24,
   tabSize: 2
 };
 
-window.$emitter?.on('curComp', (curComp: DScreen.CompObj) => {
-  compStyleStr.value = JSON.stringify(curComp.style, null, 2);
-  comp = curComp;
-});
+function getCompStyleStr() {
+  compStyleStr.value = JSON.stringify($D.curComp.style, null, 2);
+}
+
+watchEffect(() => getCompStyleStr());
 
 function confirmStyle() {
-  comp.style = JSON.parse(compStyleStr.value);
+  $D.updateCurComp({ style: JSON.parse(compStyleStr.value) });
 }
 </script>
 

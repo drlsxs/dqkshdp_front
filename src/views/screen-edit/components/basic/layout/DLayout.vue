@@ -8,17 +8,20 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex-container-comp">
+  <div class="flex-container-comp relative flex items-center justify-start">
+    <slot name="child"></slot>
     <div
-      :class="{ 'min-h-40px outline-1 outline-#bdb9b9 outline-dashed': !comp.children?.length }"
-      class="relative flex items-center justify-start"
+      v-if="!comp.children?.length"
+      class="h-full flex items-center justify-center px1 text-center"
+      :class="{ 'min-h-40px w-full outline-1 outline-#bdb9b9 outline-dashed': !comp.children?.length }"
     >
-      <slot name="child"></slot>
-      <div v-if="!comp.children?.length" :class="{ 'w-full': !comp.children?.length }" class="px1 text-center">
-        拖动组件到此区域
-      </div>
+      <div>拖动组件到此区域</div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.d {
+  justify-content: space-around;
+}
+</style>
