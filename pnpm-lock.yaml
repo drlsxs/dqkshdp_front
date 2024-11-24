@@ -77,6 +77,9 @@ importers:
       json5:
         specifier: 2.2.3
         version: 2.2.3
+      monaco-editor-vue3:
+        specifier: ^0.1.10
+        version: 0.1.10(typescript@5.6.3)
       naive-ui:
         specifier: 2.40.1
         version: 2.40.1(vue@3.5.12(typescript@5.6.3))
@@ -104,6 +107,9 @@ importers:
       vditor:
         specifier: 3.10.5
         version: 3.10.5
+      vite-plugin-monaco-editor:
+        specifier: ^1.1.0
+        version: 1.1.0(monaco-editor@0.33.0)
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -3798,6 +3804,12 @@ packages:
     resolution: {integrity: sha512-2emPTb1reeLLYwHxyVx993iYyCHEiRRO+y8NFXFPL5kl5q14sgTK76cXyEKkeKCHeRw35SfdkUJ10Q1KfHuiIQ==}
     engines: {node: '>= 0.4'}
 
+  monaco-editor-vue3@0.1.10:
+    resolution: {integrity: sha512-C1jhyx+KHQyW1AbjuA8DhIZSqkVquV7MnuWXG9jESd0e+CkzEFzuk1RvNqlN2eJ2fRkvF32yEPHYfvz9quOhHQ==}
+
+  monaco-editor@0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
+
   mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
     engines: {node: '>=10'}
@@ -4976,6 +4988,11 @@ packages:
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
+
+  vite-plugin-monaco-editor@1.1.0:
+    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
+    peerDependencies:
+      monaco-editor: '>=0.33.0'
 
   vite-plugin-progress@0.0.7:
     resolution: {integrity: sha512-zyvKdcc/X+6hnw3J1HVV1TKrlFKC4Rh8GnDnWG/2qhRXjqytTcM++xZ+SAPnoDsSyWl8O93ymK0wZRgHAoglEQ==}
@@ -9159,6 +9176,16 @@ snapshots:
       hasown: 2.0.2
       isarray: 2.0.5
 
+  monaco-editor-vue3@0.1.10(typescript@5.6.3):
+    dependencies:
+      monaco-editor: 0.33.0
+      vite-plugin-monaco-editor: 1.1.0(monaco-editor@0.33.0)
+      vue: 3.5.12(typescript@5.6.3)
+    transitivePeerDependencies:
+      - typescript
+
+  monaco-editor@0.33.0: {}
+
   mrmime@2.0.0: {}
 
   ms@2.0.0: {}
@@ -10448,6 +10475,10 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
+
+  vite-plugin-monaco-editor@1.1.0(monaco-editor@0.33.0):
+    dependencies:
+      monaco-editor: 0.33.0
 
   vite-plugin-progress@0.0.7(vite@5.4.10(@types/node@22.7.9)(sass@1.80.4)(terser@5.36.0)):
     dependencies:

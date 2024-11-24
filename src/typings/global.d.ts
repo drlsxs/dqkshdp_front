@@ -1,3 +1,5 @@
+import type { Emitter, EventType } from 'mitt';
+
 export {};
 
 declare global {
@@ -12,6 +14,7 @@ declare global {
     $message?: import('naive-ui').MessageProviderInst;
     /** Notification instance */
     $notification?: import('naive-ui').NotificationProviderInst;
+    $emitter?: Emitter<Record<EventType, unknown>>;
   }
 
   /** Build time of the project */

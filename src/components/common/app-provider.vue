@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createTextVNode, defineComponent } from 'vue';
 import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
+import emitter from '@/utils/bus';
 
 defineOptions({
   name: 'AppProvider'
@@ -14,6 +15,7 @@ const ContextHolder = defineComponent({
       window.$dialog = useDialog();
       window.$message = useMessage();
       window.$notification = useNotification();
+      window.$emitter = emitter;
     }
 
     register();

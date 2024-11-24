@@ -26,7 +26,7 @@ const compMap: Record<string, Component> = {
 const props = defineProps<Props>();
 
 function SelClickComp() {
-  $D.updateClickComp(props.compObj);
+  $D.getClickComp(props.compObj);
 }
 useEventListener(oneComp, 'dragstart', event => {
   props.compObj._isInnerDrag = true;

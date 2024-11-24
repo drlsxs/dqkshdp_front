@@ -4,6 +4,7 @@ import type { TreeOption } from 'naive-ui';
 import { NIcon } from 'naive-ui';
 import { FileTrayFullOutline } from '@vicons/ionicons5';
 import { SetupStoreId } from '@/enum';
+import { compCommonStyle } from '@/views/screen-edit/global/config/style';
 
 export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
   const screenDoor: DScreen.CompObj[] = reactive([
@@ -28,8 +29,8 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
         })
     }
   ]);
-  let targetComp: DScreen.CompObj = {} as DScreen.CompObj;
-  let clickComp: DScreen.CompObj = {} as DScreen.CompObj;
+  let overComp: DScreen.CompObj = {} as DScreen.CompObj;
+  let curComp: DScreen.CompObj = {} as DScreen.CompObj;
 
   /**
    * 找出当前页面对应的屏幕
@@ -44,26 +45,27 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
 
   /** 更新鼠标移入的组件 */
   function updateHoverComp(comp: DScreen.CompObj) {
-    targetComp._isHover = false;
+    overComp._isHover = false;
     comp._isHover = true;
-    targetComp = comp;
+    overComp = comp;
   }
 
   /** 更新拖拽移入的组件 */
   function updateDragOverComp(comp: DScreen.CompObj) {
     if (!comp.isContainer) return;
-    targetComp._isDragOver = false;
+    overComp._isDragOver = false;
     comp._isDragOver = true;
-    targetComp = comp;
+    overComp = comp;
   }
 
   /** 更新点击的组件 */
-  function updateClickComp(comp: DScreen.CompObj) {
-    clickComp._isClick = false;
-    clickComp._isHover = false;
-    comp._isHover = false;
-    comp._isClick = true;
-    clickComp = comp;
+  function getClickComp(comp: DScreen.CompObj) {
+    // 将上一个取消点击
+    if (curComp._isClick) curComp._isClick = false;
+    // 将现在设置为点击
+    curComp = comp;
+    curComp._isClick = true;
+    window.$emitter?.emit('curComp', comp);
   }
 
   /**
@@ -154,7 +156,10 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
     if (!comp.children) comp.children = [];
     // 如果是自身，必是内部拖拽，不往自身继续添加子元素
     if (comp.id !== dropComp.id) {
-      comp.children.splice(compIndex, 0, dropComp);
+      const len = Object.keys(dropComp.style).length;
+      // 还没有样式。克隆一份基础样式给组件
+      dropComp.style = JSON.parse(JSON.stringify(compCommonStyle));
+      if (!len) comp.children.splice(compIndex, 0, dropComp);
     }
     updateDragOverComp(curPage);
     updateHoverComp(comp);
@@ -163,11 +168,13 @@ export const useScreenStore = defineStore(SetupStoreId.Screen, () => {
   return {
     screenDoor,
     curPage,
+    curComp,
+    overComp,
     pageDoor,
     getClickPageScreen,
     updateHoverComp,
     updateDragOverComp,
-    updateClickComp,
+    getClickComp,
     getSelfComp,
     getContainerComp,
     getParentComp,
