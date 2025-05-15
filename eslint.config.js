@@ -19,7 +19,8 @@ export default defineConfig(
         }
       ],
       'unocss/order-attributify': 'off',
-      'no-underscore-dangle': 'off'
+      'no-underscore-dangle': 'off',
+      'no-warning-comments': 'off'
     }
   }
 );

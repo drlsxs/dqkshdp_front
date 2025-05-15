@@ -2,7 +2,6 @@
 import ContextMenu from '@imengyu/vue3-context-menu';
 import type { TreeOption } from 'naive-ui';
 import { useScreenStore } from '@/store/modules/screen';
-
 const $D = useScreenStore();
 // todo ysl 自动打开选中组件的图层节点位置
 const nodeProps = ({ option: nodeData }: { option: DScreen.CompObj | TreeOption }) => {

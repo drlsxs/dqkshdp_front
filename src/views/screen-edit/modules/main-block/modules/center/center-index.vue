@@ -5,7 +5,7 @@ import Editor from './modules/editor.vue';
 
 <template>
   <NLayout class="editor-container p4">
-    <Editor :style="editorStyle" class="h-full bg-white p0.5"></Editor>
+    <Editor :style="editorStyle" class="bg-white p0.5"></Editor>
   </NLayout>
 </template>
 

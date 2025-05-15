@@ -2,6 +2,7 @@
 import { ref, watchEffect } from 'vue';
 import { segmentTabStyle } from '@/views/screen-edit/global/config/style.js';
 import MonacoEditor from '@/components/monaco/monaco-editor.vue';
+import PropertyIndex from '@/views/screen-edit/modules/main-block/modules/right/modules/config/property/property-index.vue';
 import { useScreenStore } from '@/store/modules/screen';
 
 const $D = useScreenStore();
@@ -25,7 +26,9 @@ function confirmStyle() {
 
 <template>
   <NTabs :style="segmentTabStyle" type="segment" class="h-full px2" :tabs-padding="8">
-    <NTabPane class="h-[calc(100%-50px)]" name="layer" tab="属性"></NTabPane>
+    <NTabPane class="h-[calc(100%-50px)]" name="layer" tab="属性">
+      <PropertyIndex :comp="$D.curComp"></PropertyIndex>
+    </NTabPane>
     <NTabPane class="h-[calc(100%-50px)]" name="config" tab="样式">
       <MonacoEditor
         v-model:value="compStyleStr"

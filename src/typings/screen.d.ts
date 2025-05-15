@@ -5,7 +5,18 @@ declare namespace DScreen {
     type advance = 'map';
   }
 
+  interface Slots {
+    /** 插槽名称 */
+    name: string;
+    /** 插槽key */
+    key: string;
+    /** 插槽类型 */
+    type?: string;
+  }
+
   interface CompObj {
+    /** 组件类名 */
+    class?: string;
     /** 组件名称 */
     name: string;
     /** 组件类型 */
@@ -28,6 +39,18 @@ declare namespace DScreen {
     _isClick?: boolean;
     /** 组件样式 */
     style: Record<string, string>;
+    /** 文档信息 */
+    domInfo?: Record<string, any>;
+    /** 组件配置表 */
+    config?: Record<string, any>[];
+    /** 组件配置值 */
+    props?: Record<string, any>;
+    /** 需要动态修改 */
+    dynamic?: boolean;
+    /** 插槽配置 */
+    slots?: Slots[];
+    /** 自身被插入的插槽位置 */
+    slotKey?: string;
   }
 
   // 组件类型

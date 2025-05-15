@@ -1,27 +1,14 @@
 <script setup lang="ts">
-import OneComponent from './oneComponent.vue';
+import OneComponent from '@/views/screen-edit/global/modules/oneComponent.vue';
 
 interface Props {
-  // 组件对象
-  compList: DScreen.CompObj[];
+  modelValue: DScreen.CompObj[];
 }
-
 defineProps<Props>();
 </script>
 
 <template>
-  <OneComponent v-for="compObj in compList" :key="compObj.id" :comp-obj="compObj">
-    <template #childComp>
-      <ComponentWrapper :comp-list="compObj.children"></ComponentWrapper>
-    </template>
-  </OneComponent>
+  <OneComponent v-for="compObj in modelValue" :key="compObj.id" :comp-obj="compObj"></OneComponent>
 </template>
 
-<style lang="scss" scoped>
-.is-hover {
-  outline: var(--d-comp-hover-style);
-}
-.is-drag-over {
-  background: var(--d-comp--drag-over);
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   // 组件对象
-  compObj: DScreen.CompObj;
+  comp: DScreen.CompObj;
 }
 
 defineProps<Props>();
@@ -9,13 +9,15 @@ defineProps<Props>();
 
 <template>
   <span
-    v-if="compObj._isHover || compObj._isClick"
-    class="absolute h-21px bg-blue px1 text-white lh-21px -left-2px -top-22px"
-    :class="compObj._isClick ? 'bg-lightblue' : 'bg-blue'"
+    v-if="(comp._isHover || comp._isClick) && !comp._isDragOver"
+    :com-id="comp.id"
+    class="fixed z-99 h-21px bg-blue px1 text-white lh-21px -left-2px -top-22px"
+    :class="[comp._isClick ? 'bg-lightblue' : 'bg-blue']"
+    :style="{ left: comp.domInfo.left - 2 + 'px', top: comp.domInfo.top + comp.domInfo.height - 0.1 + 'px' }"
     size="small"
     type="info"
   >
-    {{ compObj.name }}
+    {{ comp.name }}
   </span>
 </template>
 

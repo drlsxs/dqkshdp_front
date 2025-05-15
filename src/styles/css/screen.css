@@ -1,0 +1,39 @@
+.editor .is-container {
+  min-height: 40px;
+  min-width: 120px;
+  outline: 1px dashed #bdb9b9;
+  position: relative;
+  margin-bottom: 1px;
+  margin-right: 1px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+.editor .is-container:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "拖动组件到此区域";
+  color: #716d6d;
+}
+
+.editor .has-children {
+  min-height: initial;
+  min-width: initial;
+  outline: initial;
+}
+
+.editor .is-container.is-drag-over {
+  outline: 2px solid rgb(250 204 21);
+}
+
+.slot-item.is-drag-over {
+  outline: initial;
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.editor .is-drag-over:after, .editor .has-children:after {
+  content: initial;
+}
+

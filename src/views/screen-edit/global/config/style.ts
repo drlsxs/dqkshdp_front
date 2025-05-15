@@ -20,15 +20,11 @@ export const segmentTabStyle = {
 };
 
 export const compCommonStyle = {
-  'font-style': 'normal',
-  'font-weight': 'normal',
-  'font-size': '14px',
-  'font-family': 'Arial, sans-serif',
   'line-height': 1,
   width: '',
   height: '',
-  padding: '0 0 0 0',
-  margin: '0 0 0 0',
+  // padding: '0 0 0 0',
+  // margin: '0 0 0 0',
   border: '',
   background: '',
   'box-shadow': '',
