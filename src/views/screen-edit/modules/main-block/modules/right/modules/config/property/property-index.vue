@@ -6,7 +6,6 @@ interface Props {
   // 标签名称
   comp: DScreen.CompObj;
 }
-
 defineProps<Props>();
 </script>
 

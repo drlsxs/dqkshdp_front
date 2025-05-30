@@ -8,7 +8,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex-container-comp relative flex items-center justify-start">
+  <div class="flex-container-comp relative flex">
     <slot></slot>
   </div>
 </template>

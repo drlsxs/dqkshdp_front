@@ -8,7 +8,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <OneComponent v-for="compObj in modelValue" :key="compObj.id" :comp-obj="compObj"></OneComponent>
+  <OneComponent v-for="comp in modelValue" :key="comp.id" :comp="comp"></OneComponent>
 </template>
 
 <style lang="scss" scoped></style>

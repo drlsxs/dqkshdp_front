@@ -9,7 +9,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NTag',
     isContainer: false,
     id: '',
-    style: {},
+    styleData: {},
     config: [
       {
         name: '数据',
@@ -21,7 +21,7 @@ const compList = ref<DScreen.CompObj[]>([
             key: 'content',
             type: 'string',
             control: 'textarea',
-            value: '文本内容'
+            value: '超人不会飞'
           }
         ]
       },
@@ -89,7 +89,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NRate',
     isContainer: false,
     id: '',
-    style: {}
+    styleData: {}
   },
   {
     name: '按钮',
@@ -97,15 +97,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NButton',
     isContainer: false,
     id: '',
-    style: {}
-  },
-  {
-    name: '日历',
-    type: 'external',
-    key: 'NCalendar',
-    isContainer: false,
-    id: '',
-    style: {},
+    styleData: {},
     config: [
       {
         name: '数据',
@@ -117,7 +109,7 @@ const compList = ref<DScreen.CompObj[]>([
             key: 'content',
             type: 'string',
             control: 'textarea',
-            value: '文本内容'
+            value: 'Default'
           }
         ]
       },
@@ -177,7 +169,20 @@ const compList = ref<DScreen.CompObj[]>([
         control: 'input',
         value: 'default'
       }
-    ]
+    ],
+    props: {
+      onClick: () => {
+        console.log(111111, '按钮');
+      }
+    }
+  },
+  {
+    name: '日历',
+    type: 'external',
+    key: 'NCalendar',
+    isContainer: false,
+    id: '',
+    styleData: {}
   },
   {
     name: '无数据',
@@ -185,7 +190,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NEmpty',
     isContainer: false,
     id: '',
-    style: {}
+    styleData: {}
   },
   {
     name: '分页',
@@ -193,7 +198,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NPagination',
     isContainer: false,
     id: '',
-    style: {},
+    styleData: {},
     config: [
       {
         name: '总页数',
@@ -205,9 +210,9 @@ const compList = ref<DScreen.CompObj[]>([
       {
         name: '当前页',
         key: 'page',
-        type: 'v-modal',
-        control: '',
-        value: ''
+        type: 'number',
+        control: 'inputNumber',
+        value: 1
       },
       {
         name: '默认当前页',
@@ -224,9 +229,10 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NTabs',
     isContainer: true,
     id: '',
-    style: {
+    styleData: {
       height: '300px'
-    }
+    },
+    childKey: 'NTabPane'
   },
   {
     name: '标签页面板',
@@ -235,9 +241,10 @@ const compList = ref<DScreen.CompObj[]>([
     isContainer: true,
     dynamic: true,
     id: '',
-    style: {
+    styleData: {
       height: '100%'
     },
+    parentKey: 'NTabs',
     config: [
       {
         name: '标签名',
@@ -265,7 +272,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NDropdown',
     isContainer: true,
     id: '',
-    style: {
+    styleData: {
       height: '300px'
     },
     children: [
@@ -275,7 +282,7 @@ const compList = ref<DScreen.CompObj[]>([
         key: 'NButton',
         isContainer: false,
         id: '',
-        style: {},
+        styleData: {},
         props: {
           content: '下拉菜单'
         }
@@ -288,7 +295,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NList',
     isContainer: true,
     id: '',
-    style: {
+    styleData: {
       'padding-bottom': '10px'
     },
     slots: [
@@ -304,15 +311,17 @@ const compList = ref<DScreen.CompObj[]>([
         name: '列表头部',
         key: 'header'
       }
-    ]
+    ],
+    childKey: 'NListItem'
   },
   {
     name: '列表项',
     type: 'external',
     key: 'NListItem',
+    parentKey: 'NList',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     slots: [
       {
         key: 'default',
@@ -334,7 +343,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NCollapse',
     isContainer: true,
     id: '',
-    style: {
+    styleData: {
       'padding-bottom': '10px'
     },
     slots: [
@@ -350,15 +359,17 @@ const compList = ref<DScreen.CompObj[]>([
         key: 'header-extra',
         name: '头部额外'
       }
-    ]
+    ],
+    childKey: 'NCollapseItem'
   },
   {
     name: '折叠面板项',
     type: 'external',
     key: 'NCollapseItem',
+    parentKey: 'NCollapse',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     slots: [
       {
         key: 'default',
@@ -377,7 +388,22 @@ const compList = ref<DScreen.CompObj[]>([
         name: '头部额外'
       }
     ],
-    dynamic: true,
+    config: [
+      {
+        name: '标题',
+        key: 'title',
+        type: 'string',
+        control: 'input',
+        value: '标题'
+      },
+      {
+        name: '名称',
+        key: 'name',
+        type: 'string',
+        control: 'input',
+        value: 'name'
+      }
+    ],
     props: {
       title: '标题',
       name: 'title'
@@ -389,16 +415,18 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NBreadcrumb',
     isContainer: true,
     id: '',
-    style: {},
-    props: {}
+    styleData: {},
+    props: {},
+    childKey: 'NBreadcrumbItem'
   },
   {
     name: '面包屑项',
     type: 'external',
     key: 'NBreadcrumbItem',
+    parentKey: 'NBreadcrumb',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     props: {}
   },
   {
@@ -407,11 +435,65 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NAlert',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     props: {
       title: '标题',
       type: 'info'
     }
+  },
+  {
+    name: '表单',
+    type: 'external',
+    key: 'NForm',
+    isContainer: true,
+    id: '',
+    styleData: {
+      'padding-right': '0'
+    },
+    props: {},
+    childKey: 'NFormItem',
+    config: [
+      {
+        name: '值',
+        key: 'model',
+        type: 'object',
+        control: '',
+        value: {},
+        dropdown: true
+      }
+    ]
+  },
+  {
+    name: '表单项',
+    type: 'external',
+    key: 'NFormItem',
+    isContainer: true,
+    id: '',
+    styleData: {
+      padding: '0'
+    },
+    parentKey: 'NForm',
+    props: {
+      label: '标签',
+      path: 'name'
+    },
+    config: [
+      {
+        name: '标签名',
+        key: 'label',
+        type: 'string',
+        control: 'input',
+        value: ''
+      },
+      {
+        name: '标签路径',
+        key: 'path',
+        type: 'string',
+        control: 'input',
+        value: '',
+        dropdown: true
+      }
+    ]
   },
   {
     name: '颜色选择器',
@@ -419,7 +501,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NColorPicker',
     isContainer: false,
     id: '',
-    style: {},
+    styleData: {},
     props: {}
   },
   {
@@ -428,8 +510,27 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NInput',
     isContainer: false,
     id: '',
-    style: {},
-    props: {}
+    styleData: {},
+    props: {
+      model: {},
+      path: ''
+    },
+    config: [
+      {
+        name: '值',
+        key: 'value',
+        type: 'string',
+        control: 'textarea',
+        value: '',
+        vModel: true,
+        dropData: {
+          dropItem: 'model',
+          dropType: 'object',
+          dropKey: 'path',
+          dropIndex: 0
+        }
+      }
+    ]
   },
   {
     name: '单选',
@@ -437,7 +538,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NRadio',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     props: {}
   },
   {
@@ -446,7 +547,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NSlider',
     isContainer: true,
     id: '',
-    style: {},
+    styleData: {},
     props: {},
     slots: [
       {
@@ -461,8 +562,108 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'NSwitch',
     isContainer: false,
     id: '',
-    style: {},
+    styleData: {},
     props: {}
+  },
+  {
+    name: '图像',
+    type: 'external',
+    key: 'NImage',
+    isContainer: false,
+    id: '',
+    styleData: {},
+    props: {},
+    config: [
+      {
+        name: '图片地址',
+        key: 'src',
+        type: 'string',
+        control: 'input',
+        value: ''
+      },
+      {
+        name: '图片宽度',
+        key: 'width',
+        type: 'string',
+        control: 'input',
+        value: '100'
+      },
+      {
+        name: '图片高度',
+        key: 'height',
+        type: 'string',
+        control: 'input',
+        value: '100'
+      },
+      {
+        name: '图片说明',
+        key: 'alt',
+        type: 'string',
+        control: 'input',
+        value: '图标加载失败'
+      },
+      {
+        name: '禁用预览',
+        key: 'preview-disabled',
+        type: 'boolean',
+        control: 'switch',
+        value: true
+      }
+    ]
+  },
+  {
+    name: '卡片',
+    type: 'external',
+    key: 'NCard',
+    isContainer: true,
+    id: '',
+    styleData: {},
+    props: {},
+    config: [
+      {
+        name: '是否显示卡片边框',
+        key: 'bordered',
+        type: 'boolean',
+        control: 'switch',
+        value: true
+      },
+      {
+        name: '是否允许关闭',
+        key: 'closable',
+        type: 'boolean',
+        control: 'switch',
+        value: false
+      },
+      {
+        name: '卡片是否可悬浮',
+        key: 'hoverable',
+        type: 'boolean',
+        control: 'switch',
+        value: true
+      }
+    ],
+    slots: [
+      {
+        key: 'cover',
+        name: '覆盖内容'
+      },
+      {
+        key: 'header',
+        name: '头部内容'
+      },
+      {
+        key: 'default',
+        name: '卡片内容'
+      },
+      {
+        key: 'footer',
+        name: '底部内容'
+      },
+      {
+        key: 'action',
+        name: '操作区域内容'
+      }
+    ]
   }
 ]);
 const compRef = ref();

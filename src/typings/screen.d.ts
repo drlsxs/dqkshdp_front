@@ -13,6 +13,36 @@ declare namespace DScreen {
     /** 插槽类型 */
     type?: string;
   }
+  interface DropData {
+    dropItem: string;
+    dropType: string;
+    dropKey: string;
+    dropIndex: number;
+  }
+
+  interface DomInfo {
+    el: string;
+    width: number;
+    height: number;
+    top: number;
+    left: number;
+    type: string;
+    name: string;
+  }
+
+  interface ConfigItem {
+    name: string;
+    key: string;
+    type: string;
+    control?: string;
+    value?: unknown;
+    vModel?: boolean;
+    show?: boolean;
+    dropdown?: boolean;
+    options?: Record<string, any>[];
+    group?: ConfigItem[];
+    dropData?: DropData;
+  }
 
   interface CompObj {
     /** 组件类名 */
@@ -29,20 +59,12 @@ declare namespace DScreen {
     isContainer: boolean;
     /** 组件id */
     id: string;
-    /** 是否鼠标移入 */
-    _isHover?: boolean;
-    /** 是否鼠标拖拽移入 */
-    _isDragOver?: boolean;
-    /** 是否内部拖拽 */
-    _isInnerDrag?: boolean;
-    /** 是否被点击 */
-    _isClick?: boolean;
     /** 组件样式 */
-    style: Record<string, string>;
+    styleData: Record<string, any>;
     /** 文档信息 */
-    domInfo?: Record<string, any>;
+    domInfo?: DomInfo;
     /** 组件配置表 */
-    config?: Record<string, any>[];
+    config?: ConfigItem[];
     /** 组件配置值 */
     props?: Record<string, any>;
     /** 需要动态修改 */
@@ -51,6 +73,10 @@ declare namespace DScreen {
     slots?: Slots[];
     /** 自身被插入的插槽位置 */
     slotKey?: string;
+    /** 指定父元素key */
+    parentKey?: string;
+    /** 指定子元素key */
+    childKey?: string;
   }
 
   // 组件类型

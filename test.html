@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .nestable {
+      margin: 10px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+
+    }
+  </style>
+</head>
+<body>
+<!-- 可滚动的容器 -->
+<div id="scroll-container" style="height: 300px; overflow: auto; border: 1px solid #ccc; position: relative;">
+  <!-- 嵌套的 div 结构 -->
+  <div class="nestable" data-label="Parent">
+    <div class="nestable" data-label="Child 1">
+      <div class="nestable" data-label="Grandchild"></div>
+    </div>
+    <div class="nestable" data-label="Child 2"></div>
+  </div>
+</div>
+
+<!-- 外部固定布局的高亮框（边框 + 标签） -->
+<div id="highlight-box" style="position: absolute; border: 2px solid red; pointer-events: none; display: none;">
+  <div id="highlight-label" style="position: absolute; top: -20px; left: 0; background: red; color: white; padding: 2px 5px; font-size: 12px;"></div>
+</div>
+<script>
+  const scrollContainer = document.getElementById('scroll-container');
+  const highlightBox = document.getElementById('highlight-box');
+  const highlightLabel = document.getElementById('highlight-label');
+  let currentHighlightedElement = null;
+
+  // 1. 点击事件：高亮目标元素并更新外部高亮框
+  scrollContainer.addEventListener('click', (e) => {
+    const clickedElement = e.target.closest('.nestable');
+    if (!clickedElement) return;
+
+    // 更新高亮框位置和标签
+    updateHighlightBox(clickedElement);
+  });
+
+  // 2. 滚动事件：实时更新高亮框位置
+  scrollContainer.addEventListener('scroll', () => {
+    if (currentHighlightedElement) {
+      updateHighlightBox(currentHighlightedElement);
+    }
+  });
+
+  // 更新高亮框位置和标签
+  function updateHighlightBox(element) {
+    const rect = element.getBoundingClientRect();
+    const containerRect = scrollContainer.getBoundingClientRect();
+
+    // 计算相对于 scrollContainer 的位置
+    const top = rect.top - containerRect.top + scrollContainer.scrollTop;
+    const left = rect.left - containerRect.left + scrollContainer.scrollLeft;
+
+    // 更新高亮框位置和大小
+    highlightBox.style.display = 'block';
+    highlightBox.style.top = `${top}px`;
+    highlightBox.style.left = `${left}px`;
+    highlightBox.style.width = `${rect.width}px`;
+    highlightBox.style.height = `${rect.height}px`;
+
+    // 更新标签
+    highlightLabel.textContent = element.dataset.label || 'Div';
+
+    // 记录当前高亮元素
+    currentHighlightedElement = element;
+  }
+</script>
+</body>
+</html>

@@ -9,9 +9,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'DLayout',
     isContainer: true,
     id: '',
-    style: {
-      'padding-right': '10px'
-    },
+    styleData: {},
     slots: [
       {
         name: '默认',
@@ -26,7 +24,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'DText',
     isContainer: false,
     id: '',
-    style: {},
+    styleData: {},
     config: [
       {
         name: '数据',
@@ -50,7 +48,7 @@ const compList = ref<DScreen.CompObj[]>([
     key: 'DSvg',
     isContainer: false,
     id: '',
-    style: {}
+    styleData: {}
   }
 ]);
 const compRef = ref();

@@ -24,7 +24,7 @@ const comps = computed({
 });
 
 function getCompProps() {
-  comps.value.props = Object.assign(comps.value.props, getPropsData(comps.value.config));
+  comps.value.props = Object.assign(comps.value.props, getPropsData(comps.value));
 }
 
 watchEffect(() => getCompProps());
@@ -32,7 +32,7 @@ watchEffect(() => getCompProps());
 
 <template>
   <NList :show-divider="false">
-    <NListItem v-for="item in comp.config" v-show="item.type !== 'v-modal'" :key="item.key">
+    <NListItem v-for="item in comp.config" :key="item.key">
       <Items :items="item" />
     </NListItem>
   </NList>

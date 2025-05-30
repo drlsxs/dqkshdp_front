@@ -5,7 +5,7 @@ import Config from './modules/config/config-index.vue';
 
 const activeName = ref('layer');
 window.$emitter?.on('dropComp', () => {
-  activeName.value = 'layer';
+  activeName.value = 'config';
 });
 // window.$emitter?.on('curComp', () => {
 //   activeName.value = 'config';

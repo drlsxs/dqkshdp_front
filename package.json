@@ -59,6 +59,7 @@
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
     "@sa/utils": "workspace:*",
+    "@vicons/fluent": "^0.13.0",
     "@vicons/ionicons5": "^0.12.0",
     "@vueuse/components": "11.1.0",
     "@vueuse/core": "11.1.0",

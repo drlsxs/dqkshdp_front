@@ -8,9 +8,9 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="text-comp">
+  <span class="text-comp">
     <slot>文字内容</slot>
-  </div>
+  </span>
 </template>
 
 <style scoped></style>

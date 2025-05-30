@@ -44,6 +44,9 @@ importers:
       '@sa/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@vicons/fluent':
+        specifier: ^0.13.0
+        version: 0.13.0
       '@vicons/ionicons5':
         specifier: ^0.12.0
         version: 0.12.0
@@ -1500,6 +1503,9 @@ packages:
     resolution: {integrity: sha512-gxK3gtvYQH5S/qtuvsY4M0S+KJPZnYrOQI/Gopufx+b2qgmwZ/TSAe66gWeKYfe3DfQsmA3PPh/GXpkK+/FnHg==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
+
+  '@vicons/fluent@0.13.0':
+    resolution: {integrity: sha512-bYGZsOE3qzvm3Cm43e7tybgGlr5ZUpYqtRZq0g0Tfupe8jIzLolpvQLNUt1zS8Mgt6goTbUk5YH7Fkv16jkykg==}
 
   '@vicons/ionicons5@0.12.0':
     resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}
@@ -6516,6 +6522,8 @@ snapshots:
       - rollup
       - supports-color
       - typescript
+
+  '@vicons/fluent@0.13.0': {}
 
   '@vicons/ionicons5@0.12.0': {}
 

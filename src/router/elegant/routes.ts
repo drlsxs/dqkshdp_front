@@ -77,6 +77,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'preview',
+    path: '/preview',
+    component: 'layout.blank$view.preview',
+    meta: {
+      title: 'preview',
+      i18nKey: 'route.preview',
+      constant: true,
+      hideInMenu: false
+    }
+  },
+  {
     name: 'screen-edit',
     path: '/screen-edit',
     component: 'layout.blank$view.screen-edit',

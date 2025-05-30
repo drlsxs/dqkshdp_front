@@ -1,39 +1,30 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
-import { useScreenStore } from '@/store/modules/screen';
-const $D = useScreenStore();
+import $D from '@/views/screen-edit/global';
 
 interface Props {
   // 组件对象
-  compObj: DScreen.CompObj;
+  comp: DScreen.CompObj;
 }
 
 const oneComp = ref();
 
-const props = defineProps<Props>();
-
-interface Emits {
-  (e: 'update:compObj', value: DScreen.CompObj): void;
-}
-
-const emit = defineEmits<Emits>();
-const curComp = computed({
-  get: () => props.compObj,
-  set: value => emit('update:compObj', value)
-});
+defineProps<Props>();
 
 // 内部拖拽
 useEventListener(oneComp, 'dragstart', event => {
   event.stopPropagation();
-  curComp.value._isInnerDrag = true;
-  event.dataTransfer?.setData('comp', JSON.stringify(curComp.value));
-  $D.updateCurComp(curComp.value);
+  // fixme 这里拖到如果是在拖容器内的子组件，当前组件是容器，不是拖拽的子组件
+  // curComp.value._isInnerDrag = true;
+  // $D.updateCurComp(curComp.value);
+  const dragComp: DScreen.CompObj = $D.getSelfComp(event, $D.curPage);
+  $D.setCurDragComp(dragComp, true);
 });
 </script>
 
 <template>
-  <component :is="$D.getCompVNode(curComp)" ref="oneComp"></component>
+  <component :is="$D.getCompVNode(comp)" ref="oneComp"></component>
 </template>
 
 <style lang="scss" scoped>

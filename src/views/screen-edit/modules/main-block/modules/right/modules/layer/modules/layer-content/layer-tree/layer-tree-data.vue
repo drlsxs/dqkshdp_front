@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import ContextMenu from '@imengyu/vue3-context-menu';
+import { h } from 'vue';
 import type { TreeOption } from 'naive-ui';
+import { ChevronForward } from '@vicons/ionicons5';
+import { NIcon } from 'naive-ui';
 import { useScreenStore } from '@/store/modules/screen';
 const $D = useScreenStore();
 // todo ysl 自动打开选中组件的图层节点位置
@@ -10,9 +13,12 @@ const nodeProps = ({ option: nodeData }: { option: DScreen.CompObj | TreeOption 
       nodeData._isClick = true;
       $D.resetComp($D.curComp);
       $D.setCurComp(nodeData as DScreen.CompObj);
+      $D.updateLockComp();
     }
   };
 };
+const renderSwitcherIcon = ({ option }: { option: DScreen.CompObj }) =>
+  option.children && option.children?.length ? h(NIcon, null, { default: () => h(ChevronForward) }) : '';
 
 const data = $D.curPage.children;
 const onContextMenu = (e: MouseEvent) => {
@@ -42,9 +48,10 @@ const onContextMenu = (e: MouseEvent) => {
     :node-props="nodeProps"
     key-field="id"
     block-line
-    :selected-keys="[$D.curComp.id]"
+    :selected-keys="[$D.curCompId]"
     expand-on-click
     :data="data"
+    :render-switcher-icon="renderSwitcherIcon"
     @contextmenu="onContextMenu"
   />
 </template>
